@@ -14,7 +14,7 @@ let date = ref(Math.floor((new Date(`${year.value}-06-06`).getTime() - new Date(
 </script>
 <template>
     <div id="timer"
-        style="font-size:large;font-weight: 700;width: 99vw;height: 8vh;background-color: var(--color-bg-2);text-align: center;">
+        style="font-size:large;font-weight: 700;width: 99vw;height: 8vh;background-color: #f8eeaab8;text-align: center;">
         <div>
             <span style="margin-top: 1vh;">距离 {{ year }} 高考仅剩</span>
             <br><span style="color: red;font-size: x-large;"> <b style="font-size:x-large;font-weight: 900;">{{ date
@@ -91,8 +91,11 @@ let date = ref(Math.floor((new Date(`${year.value}-06-06`).getTime() - new Date(
             </p>
             <br>
             <p>在资料的收集过程中，还有很多人提供了帮助，我们无法一一列出，在此一并表示感谢。</p>
-        </div>
 
+        </div>
+        <br>
+        <div> 资源来源于网络，如有侵权请联系删除：QQ 3551045690</div>
+        <br>
         <Button @click="jumpQQ" type="primary">
             网站交流与反馈
         </Button>
