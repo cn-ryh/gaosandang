@@ -8,6 +8,7 @@ import '@arco-design/web-vue/es/card/style/css.js';
 import '@arco-design/web-vue/es/avatar/style/css.js';
 import '@arco-design/web-vue/es/button/style/css.js';
 import '@arco-design/web-vue/es/table/style/css.js';
+import '@arco-design/web-vue/es/tooltip/style/css.js';
 import ArcoVueIcon from '@arco-design/web-vue/es/icon';
 app.use(ArcoVueIcon);
 app.mount(`body`);

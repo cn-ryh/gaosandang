@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { Ref, ref } from 'vue';
-import { Button, Card, Table, TableColumn, Link } from '@arco-design/web-vue';
+import { Button, Card, Table, TableColumn, Link, Tooltip } from '@arco-design/web-vue';
 import { IFileLink, defaultList } from "./list";
+import axios from 'axios';
 const FileLinks: Ref<IFileLink[]> = ref(defaultList);
-// function jump(idx: number): void {
-//     window.open(FileLinks.value[idx].url);
-// }
+
+axios.get(`https://lenovo.cnryh.cn:10087/gaosandang/getResources`).then((res) => {
+    FileLinks.value = res.data;
+});
 function jumpQQ() {
     window.open("https://qm.qq.com/q/jxcFPBXyhy");
 }
@@ -33,6 +35,12 @@ let date = ref(Math.floor((new Date(`${year.value}-06-06`).getTime() - new Date(
                 id="mainTable" :data="FileLinks" style="margin-top: 1vh;overflow: auto;">
                 <template #columns>
                     <TableColumn title="名称" data-index="title" fixed="left" :width="150">
+                        <template #cell="{ record }">
+                            <Tooltip v-if="record.description !== ``" :content="record.description">
+                                <span>{{ record.title }}</span>
+                            </Tooltip>
+                            <span v-if="record.description === ``">{{ record.title }}</span>
+                        </template>
                     </TableColumn>
                     <TableColumn title="百度网盘" data-index="title" :width="100">
                         <template #cell="{ record }">
