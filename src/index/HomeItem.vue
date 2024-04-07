@@ -11,10 +11,10 @@ function jumpQQ() {
 }
 let year = ref(new Date().getFullYear() + ((new Date().getMonth() == 6) ? (new Date().getDate() < 8 ? 0 : 1) : (new Date().getMonth() < 6 ? 0 : 1)));
 let date = ref(Math.floor((new Date(`${year.value}-06-06`).getTime() - new Date().getTime()) / 86400000));
-</script>
+</script>id
 <template>
     <div id="timer"
-        style="font-size:large;font-weight: 700;width: 99vw;height: 8vh;background-color: #f8eeaab8;text-align: center;">
+        style="font-size:large;font-weight: 700;width: 99vw;height: 8vh;background: rgba(230, 231, 230, 0.9);text-align: center;z-index: 9999;">
         <div>
             <span style="margin-top: 1vh;">距离 {{ year }} 高考仅剩</span>
             <br><span style="color: red;font-size: x-large;"> <b style="font-size:x-large;font-weight: 900;">{{ date
@@ -23,49 +23,39 @@ let date = ref(Math.floor((new Date(`${year.value}-06-06`).getTime() - new Date(
 
         </div>
     </div>
-    <Card style="width: 60vw;margin-left: 20vw;height: 80vh;margin-top: 8vh;opacity: 0.94;">
+    <Card id="FileListCard" style="overflow: auto;">
         <center>
-
-            <!-- <List style="width: 45vw;height: 60vh;margin-top: 1vh">
-                <List.Item v-for="(item, idx) in FileLinks" :key="idx" @click="jump(idx)">
-                    <List.Item.Meta :title="item.title" :description="item.description"><template #avatar>
-                            <Avatar shape="square" style="width: 3.5vw;">
-                                <img alt="avatar" src="bag.png" />
-                            </Avatar>
-                        </template>
-</List.Item.Meta>
-</List.Item>
-</List> -->
             <br>
             <div style="margin-top: 1vh;">
                 直链下载由开发者提供，处于试用阶段，可能出现不稳定的情况，请谅解。
             </div>
-            <Table :data="FileLinks" style="margin-top: 1vh;">
+            <Table :pagination="{ pageSize: 25, hideOnSinglePage: true }" sticky-header :scroll="{ x: 600, y: 400 }"
+                id="mainTable" :data="FileLinks" style="margin-top: 1vh;overflow: auto;">
                 <template #columns>
-                    <TableColumn title="名称" data-index="title">
+                    <TableColumn title="名称" data-index="title" fixed="left" :width="150">
                     </TableColumn>
-                    <TableColumn title="百度网盘" data-index="title">
+                    <TableColumn title="百度网盘" data-index="title" :width="100">
                         <template #cell="{ record }">
                             <Link target="_blank" v-if="record.url[0] && record.url[0] !== ``" :href="record.url[0]">
                             Link
                             </Link>
-                            <span v-if="record.url[0] == `` || !record.url[0]">暂无数据</span>
+                            <span v-if="record.url[0] == `` || !record.url[0]">暂无</span>
                         </template>
                     </TableColumn>
-                    <TableColumn title="阿里云盘" data-index="title">
+                    <TableColumn title="阿里云盘" data-index="title" :width="100">
                         <template #cell="{ record }">
                             <Link target="_blank" v-if="record.url[1] && record.url[1] !== ``" :href="record.url[1]">
                             Link
                             </Link>
-                            <span v-if="record.url[1] == `` || !record.url[1]">暂无数据</span>
+                            <span v-if="record.url[1] == `` || !record.url[1]">暂无</span>
                         </template>
                     </TableColumn>
-                    <TableColumn title="夸克网盘" data-index="title">
+                    <TableColumn title="夸克网盘" data-index="title" :width="100">
                         <template #cell="{ record }">
                             <Link target="_blank" v-if="record.url[2] && record.url[2] !== ``" :href="record.url[2]">
                             Link
                             </Link>
-                            <span v-if="record.url[2] == `` || !record.url[2]">暂无数据</span>
+                            <span v-if="record.url[2] == `` || !record.url[2]">暂无</span>
                         </template>
                     </TableColumn>
                     <TableColumn title="直链下载" data-index="title">
@@ -73,23 +63,19 @@ let date = ref(Math.floor((new Date(`${year.value}-06-06`).getTime() - new Date(
                             <Link target="_blank" v-if="record.url[3] && record.url[3] !== ``" :href="record.url[3]">
                             Link
                             </Link>
-                            <span v-if="record.url[3] == `` || !record.url[3]">暂无数据</span>
+                            <span v-if="record.url[3] == `` || !record.url[3]">暂无</span>
                         </template>
                     </TableColumn>
                     <!-- </a> -->
                 </template>
             </Table>
         </center>
-        <p style="float: inline-end;">点击这里可以翻页哦~</p>
+        <p v-if="FileLinks.length > 25" style="float: inline-end;">点击这里可以翻页哦~</p>
     </Card>
-    <Card style="position: fixed;width: 15vw;height: 60vh;right: 3vw; top:18vh;">
+    <Card id="sidebarCard" style="">
         <div>
-            <h2>
-                特别鸣谢
-            </h2>
-            <p>感谢学长筱雅、张三、小芋头等笔袋朋友提供的资料
-            </p>
-            <br>
+            <h3>特别鸣谢</h3>
+            <p>感谢学长筱雅、张三、小芋头等笔袋朋友提供的资料</p>
             <p>在资料的收集过程中，还有很多人提供了帮助，我们无法一一列出，在此一并表示感谢。</p>
 
         </div>
@@ -101,3 +87,77 @@ let date = ref(Math.floor((new Date(`${year.value}-06-06`).getTime() - new Date(
         </Button>
     </Card>
 </template>
+<style scoped>
+#FileListCard {
+    width: 45vw;
+    margin-left: 15vw;
+    height: 70vh;
+    margin-top: 14vh;
+    opacity: 0.94;
+}
+
+#sidebarCard {
+    position: fixed;
+    width: 28vw;
+    height: 60vh;
+    right: 3vw;
+    top: 18vh;
+}
+
+@media only screen and (max-width:1024px) {
+    #FileListCard {
+        width: 60vw;
+        margin-left: 8vw;
+        height: 80vh;
+        margin-top: 8vh;
+        opacity: 0.94;
+    }
+
+    #sidebarCard {
+        width: 25vw;
+    }
+}
+
+@media only screen and (max-width:750px) {
+    #FileListCard {
+        width: 85vw;
+        margin-left: 7vw;
+        height: 70vh;
+        margin-top: 8vh;
+        opacity: 0.94;
+    }
+
+    #sidebarCard {
+        position: relative;
+        margin-top: 5vh;
+        width: 99vw;
+        left: 0.2vw;
+        bottom: 0vh;
+        height: 40vh;
+        top: auto;
+        right: auto
+    }
+}
+
+@media only screen and (max-width:600px) {
+    #FileListCard {
+        width: 95vw;
+        margin-left: 2vw;
+        height: 80vh;
+        margin-top: 8vh;
+        opacity: 0.94;
+    }
+
+    #sidebarCard {
+        position: relative;
+        margin-top: 5vh;
+        width: 99vw;
+        left: 0.2vw;
+        bottom: 0vh;
+        height: 30vh;
+        top: auto;
+        right: auto;
+        overflow: auto;
+    }
+}
+</style>
