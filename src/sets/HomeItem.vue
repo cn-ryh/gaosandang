@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import { Ref, ref } from 'vue';
-import HeaderView from '../moudles/HeaderView.vue';
 import { Button, Card, Table, TableColumn, Link, Tooltip } from '@arco-design/web-vue';
 import { IFileLink, defaultList } from "./list";
 import axios from 'axios';
+import HeaderView from '@/moudles/HeaderView.vue';
 const FileLinks: Ref<IFileLink[]> = ref(defaultList);
 
 axios.get(`https://lenovo.cnryh.cn:10087/gaosandang/getResources`).then((res) => {
     FileLinks.value = res.data;
-    console.log(FileLinks.value);
 });
 function jumpQQ() {
     window.open("https://qm.qq.com/q/jxcFPBXyhy");
