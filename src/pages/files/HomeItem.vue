@@ -1,18 +1,31 @@
 <script setup lang="ts">
-import { Ref, ref } from 'vue';
-import { IFileLink, defaultList } from "./list";
-import axios from 'axios';
+// import { Ref, ref } from 'vue';
+// import { IFileLink, defaultList } from "./list";
+// import axios from 'axios';
 import HeaderView from '../moudles/HeaderView.vue';
-const FileLinks: Ref<IFileLink[]> = ref(defaultList);
+//const FileLinks: Ref<IFileLink[]> = ref(defaultList);
+function getQueryString(url_string: string, name: string) {
+    const url = new URL(url_string);
+    return url.searchParams.get(name);
+}
+// let nowPath: string | null = `/`;
+if (getQueryString(window.location.href, 'path')) {
+    //  nowPath = getQueryString(window.location.href, 'path');
+}
 
-axios.get(`https://lenovo.cnryh.cn:10087/gaosandang/getResources`).then((res) => {
-    FileLinks.value = res.data;
-});
+// axios({
+//     method: 'get',
+//     url: `https://lenovo.cnryh.cn:10087/gaosandang/getDir/`,
+//     data: {
+//         path: nowPath
+//     }
+// }).then((res) => {
+//     FileLinks.value = res.data;
+// });
 
 </script>
 <template>
     <HeaderView></HeaderView>
-
 </template>
 <style scoped>
 #FileListCard {

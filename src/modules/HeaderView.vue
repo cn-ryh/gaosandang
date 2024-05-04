@@ -2,10 +2,10 @@
 import { Menu, MenuItem } from '@arco-design/web-vue';
 import '@arco-design/web-vue/es/menu/style';
 import { ref } from 'vue';
-const links: string[] = ['./files.html', './sets.html'];
+const links: string[] = ['https://t2b5y-my.sharepoint.com/:f:/g/personal/gaosandangadmin_t2b5y_onmicrosoft_com/EurHw6zXMuFKuJxAz3F3fK8Bqss44X3j9HEASrWa1v_V8A?e=gWYooG', './sets.html'];
 function changeView(key: string) {
     window.location.href = links[+key];
-    
+
 }
 let year = ref(new Date().getFullYear() + ((new Date().getMonth() == 6) ? (new Date().getDate() < 8 ? 0 : 1) : (new Date().getMonth() < 6 ? 0 : 1)));
 let date = ref(Math.ceil((new Date(`${year.value}-06-06`).getTime() - new Date().getTime()) / 86400000));

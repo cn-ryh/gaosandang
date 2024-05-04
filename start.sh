@@ -1,1 +1,0 @@
-nohup bash "`dirname $0`/run.sh" >>"`dirname $0`/runner.log" 2>&1 &
